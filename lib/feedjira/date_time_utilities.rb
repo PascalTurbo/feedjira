@@ -14,11 +14,11 @@ module Feedjira
       DATE_PARSERS.find do |parser|
         begin
           return parser.parse(string).feed_utils_to_gm_time
-        rescue
-          nil
+        rescue StandardError => e
+          Feedjira::Logger.warn { "Failed to parse date #{string.inspect}" }
+          Feedjira::Logger.exception(e)
         end
       end
-      warn "Failed to parse date #{string.inspect}"
     end
   end
 end

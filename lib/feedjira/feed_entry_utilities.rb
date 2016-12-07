@@ -9,8 +9,9 @@ module Feedjira
 
     def parse_datetime(string)
       DateTime.parse(string).feed_utils_to_gm_time
-    rescue
-      warn "Failed to parse date #{string.inspect}"
+    rescue StandardError => e
+      Feedjira::Logger.warn { "Failed to parse date #{string.inspect}" }
+      Feedjira::Logger.exception(e)
       nil
     end
 
