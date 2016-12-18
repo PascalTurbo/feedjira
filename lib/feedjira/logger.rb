@@ -7,6 +7,8 @@ module Feedjira
     def logger
       return @logger unless @logger.nil?
       @logger = ::Logger.new(STDOUT)
+      @logger.level = ::Logger::WARN
+      return @logger
     end
   end
 
@@ -16,6 +18,10 @@ module Feedjira
   #   Feedjira::Logger.info { "My Info Message" }
   module Logger
     class << self
+      def debug
+        Feedjira.logger.debug('Feedjira') { yield }
+      end
+
       def info
         Feedjira.logger.info('Feedjira') { yield }
       end
@@ -30,10 +36,6 @@ module Feedjira
 
       def fatal
         Feedjira.logger.fatal('Feedjira') { yield }
-      end
-
-      def debug
-        Feedjira.logger.debug('Feedjira') { yield }
       end
 
       # Log exceptions with message and backtrace in a common way

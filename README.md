@@ -20,7 +20,7 @@ There you'll find documentation, examples, announcements and more.
 Feedjira Configuration Options could be set either by calling them directly via
 
 ```ruby
-Feedjira.config.logger = Logger.new('foo.log')
+Feedjira::Config.logger = Logger.new('foo.log')
 ```
 
 or using a block
@@ -34,5 +34,10 @@ end
 #### Logger
 
 Per default Feedjira will log all messages to STDOUT. If you are using Feedjira in your own app you could pass your logger instance to Feedjira to use a single logger for the whole application.
-Feedjira will always use 'Feedjira' as ProgName so you can identify specific Feedjira log entries. 
+Feedjira will always use 'Feedjira' as ProgName so you can identify specific Feedjira log entries.
 
+The [level](http://ruby-doc.org/stdlib-2.1.0/libdoc/logger/rdoc/Logger.html) of logger can be set as follows
+
+```ruby
+Feedjira::Config.logger.level = Logger::DEBUG
+```
