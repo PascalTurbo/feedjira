@@ -11,14 +11,16 @@ module Feedjira
     # Parse the given string starting with the most common parser (default ruby)
     # and going over all other available parsers
     def parse_datetime(string)
-      DATE_PARSERS.find do |parser|
+      res = DATE_PARSERS.find do |parser|
         begin
           return parser.parse(string).feed_utils_to_gm_time
         rescue StandardError => e
-          Feedjira::Logger.warn { "Failed to parse date #{string.inspect}" }
-          Feedjira::Logger.exception(e)
+          Feedjira::Logger.exception(e) { "Failed to parse date #{string}" }
+          nil
         end
       end
+      Feedjira::Logger.warn { "Failed to parse date #{string}" } if res.nil?
+      res
     end
   end
 end

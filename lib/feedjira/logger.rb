@@ -8,7 +8,7 @@ module Feedjira
       return @logger unless @logger.nil?
       @logger = ::Logger.new(STDOUT)
       @logger.level = ::Logger::WARN
-      return @logger
+      @logger
     end
   end
 
@@ -41,7 +41,10 @@ module Feedjira
       # Log exceptions with message and backtrace in a common way
       # Exceptions will only be logged when severity level 'debug' is set
       def exception(e)
-        Feedjira.logger.debug('Feedjira') { e.message + "\n " + e.backtrace.join("\n ") }
+        Feedjira.logger.debug('Feedjira') do
+          msg = block_given? ? "#{yield}\n" : ''
+          msg + "Message: #{e.message}\n#{e.backtrace.join("\n ")}"
+        end
       end
     end
   end
