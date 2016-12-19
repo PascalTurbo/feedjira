@@ -6,8 +6,8 @@ module Feedjira
     # If no logger is set by the user, a logger using STDOUT is provided
     def logger
       return @logger unless @logger.nil?
-      @logger = ::Logger.new(STDOUT)
-      @logger.level = ::Logger::WARN
+      @logger = ::Logger.new(Feedjira::Config::DEFAULTS[:logger_io])
+      @logger.level = Feedjira::Config::DEFAULTS[:logger_level]
       @logger
     end
   end

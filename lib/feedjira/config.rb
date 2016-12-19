@@ -9,6 +9,11 @@ module Feedjira
   end
 
   module Config
+    DEFAULTS = {
+      logger_io: STDOUT,
+      logger_level: Logger::WARN
+    }.freeze
+
     class << self
       def logger=(logger)
         Feedjira.logger = logger
