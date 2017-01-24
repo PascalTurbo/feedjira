@@ -1,4 +1,5 @@
 # rubocop:disable Style/Documentation
+# rubocop:disable Style/DocumentationMethod
 module Feedjira
   module FeedUtilities
     UPDATABLE_ATTRIBUTES = %w(title feed_url url last_modified etag).freeze
@@ -12,7 +13,7 @@ module Feedjira
 
     module ClassMethods
       def parse(xml, &block)
-        xml = xml.lstrip
+        xml = strip_whitespace(xml)
         xml = preprocess(xml) if preprocess_xml
         super xml, &block
       end
@@ -28,6 +29,14 @@ module Feedjira
 
       def preprocess_xml
         @preprocess_xml
+      end
+
+      def strip_whitespace(xml)
+        if Feedjira.strip_whitespace
+          xml.strip
+        else
+          xml.lstrip
+        end
       end
     end
 

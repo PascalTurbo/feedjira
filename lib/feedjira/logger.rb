@@ -10,10 +10,15 @@ module Feedjira
     #
     # @return [Logger]
     def logger
-      return @logger unless @logger.nil?
-      @logger = ::Logger.new(Feedjira::Config::DEFAULTS[:logger_io])
-      @logger.level = Feedjira::Config::DEFAULTS[:logger_level]
-      @logger
+      @logger ||= build_logger
+    end
+
+    private
+
+    def build_logger
+      ::Logger.new(Feedjira.logger_io).tap do |logger|
+        logger.level = Feedjira.logger_level
+      end
     end
   end
 

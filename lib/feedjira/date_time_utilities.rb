@@ -6,6 +6,7 @@ module Feedjira
     DATE_PARSERS = [
       DateTimePatternParser,
       DateTimeLanguageParser,
+      DateTimeEpochParser,
       DateTime
     ].freeze
 

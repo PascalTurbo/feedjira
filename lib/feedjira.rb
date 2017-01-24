@@ -5,10 +5,11 @@ require 'sax-machine'
 require 'loofah'
 require 'logger'
 
-require 'feedjira/config'
 require 'feedjira/core_ext'
-require 'feedjira/date_time_utilities/date_time_pattern_parser'
+require 'feedjira/configuration'
+require 'feedjira/date_time_utilities/date_time_epoch_parser'
 require 'feedjira/date_time_utilities/date_time_language_parser'
+require 'feedjira/date_time_utilities/date_time_pattern_parser'
 require 'feedjira/date_time_utilities'
 require 'feedjira/date_time_utilities'
 require 'feedjira/feed_entry_utilities'
@@ -38,7 +39,10 @@ require 'feedjira/parser/google_docs_atom'
 require 'feedjira/parser/atom_youtube_entry'
 require 'feedjira/parser/atom_youtube'
 
+# Feedjira
 module Feedjira
   class NoParserAvailable < StandardError; end
   class FetchFailure < StandardError; end
+
+  extend Configuration
 end
